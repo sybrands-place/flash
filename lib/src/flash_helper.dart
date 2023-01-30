@@ -334,7 +334,7 @@ extension FlashBarShortcuts on BuildContext {
             );
             child = TextButtonTheme(
               data: TextButtonThemeData(
-                style: TextButton.styleFrom(primary: $actionColor),
+                style: TextButton.styleFrom(foregroundColor: $actionColor),
               ),
               child: child,
             );
@@ -432,6 +432,7 @@ extension FlashBarShortcuts on BuildContext {
   /// Show an information flash bar.
   Future<T?> showInfoBar<T>({
     required Widget content,
+    FlashPosition? position,
     Duration duration = const Duration(seconds: 3),
     Icon? icon = const Icon(Icons.info_outline),
     FlashWidgetBuilder<T>? primaryActionBuilder,
@@ -439,6 +440,7 @@ extension FlashBarShortcuts on BuildContext {
     return showFlashBar<T>(
       barType: FlashBarType.info,
       content: content,
+      position: position,
       icon: icon,
       duration: duration,
       primaryActionBuilder: primaryActionBuilder,
@@ -448,6 +450,7 @@ extension FlashBarShortcuts on BuildContext {
   /// Show a success flash bar.
   Future<T?> showSuccessBar<T>({
     required Widget content,
+    FlashPosition? position,
     Duration duration = const Duration(seconds: 3),
     Icon? icon = const Icon(Icons.check_circle_outline),
     FlashWidgetBuilder<T>? primaryActionBuilder,
@@ -455,6 +458,7 @@ extension FlashBarShortcuts on BuildContext {
     return showFlashBar<T>(
       barType: FlashBarType.success,
       content: content,
+      position: position,
       icon: icon,
       duration: duration,
       primaryActionBuilder: primaryActionBuilder,
@@ -464,6 +468,7 @@ extension FlashBarShortcuts on BuildContext {
   /// Show a error flash bar.
   Future<T?> showErrorBar<T>({
     required Widget content,
+    FlashPosition? position,
     Duration duration = const Duration(seconds: 3),
     Icon? icon = const Icon(Icons.error_outline),
     FlashWidgetBuilder<T>? primaryActionBuilder,
@@ -471,6 +476,7 @@ extension FlashBarShortcuts on BuildContext {
     return showFlashBar<T>(
       barType: FlashBarType.error,
       content: content,
+      position: position,
       icon: icon,
       duration: duration,
       primaryActionBuilder: primaryActionBuilder,
@@ -546,7 +552,7 @@ extension FlashDialogShortcuts on BuildContext {
             );
             child = TextButtonTheme(
               data: TextButtonThemeData(
-                style: TextButton.styleFrom(primary: $actionColor),
+                style: TextButton.styleFrom(foregroundColor: $actionColor),
               ),
               child: child,
             );
@@ -989,6 +995,72 @@ class FlashBarThemeData {
       infoColor.hashCode ^
       successColor.hashCode ^
       errorColor.hashCode;
+
+  FlashBarThemeData copyWith({
+    Duration? transitionDuration,
+    FlashBehavior? behavior,
+    FlashPosition? position,
+    bool? enableVerticalDrag,
+    HorizontalDismissDirection? horizontalDismissDirection,
+    Brightness? brightness,
+    Color? backgroundColor,
+    Gradient? backgroundGradient,
+    List<BoxShadow>? boxShadows,
+    double? barrierBlur,
+    Color? barrierColor,
+    bool? barrierDismissible,
+    BorderRadius? borderRadius,
+    Color? borderColor,
+    double? borderWidth,
+    BoxConstraints? constraints,
+    EdgeInsets? margin,
+    Duration? insetAnimationDuration,
+    Curve? insetAnimationCurve,
+    Curve? forwardAnimationCurve,
+    Curve? reverseAnimationCurve,
+    EdgeInsets? padding,
+    TextStyle? titleStyle,
+    TextStyle? contentStyle,
+    Color? actionColor,
+    Color? infoColor,
+    Color? successColor,
+    Color? errorColor,
+  }) {
+    return FlashBarThemeData(
+      transitionDuration: transitionDuration ?? this.transitionDuration,
+      behavior: behavior ?? this.behavior,
+      position: position ?? this.position,
+      enableVerticalDrag: enableVerticalDrag ?? this.enableVerticalDrag,
+      horizontalDismissDirection:
+          horizontalDismissDirection ?? this.horizontalDismissDirection,
+      brightness: brightness ?? this.brightness,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      backgroundGradient: backgroundGradient ?? this.backgroundGradient,
+      boxShadows: boxShadows ?? this.boxShadows,
+      barrierBlur: barrierBlur ?? this.barrierBlur,
+      barrierColor: barrierColor ?? this.barrierColor,
+      barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+      borderRadius: borderRadius ?? this.borderRadius,
+      borderColor: borderColor ?? this.borderColor,
+      borderWidth: borderWidth ?? this.borderWidth,
+      constraints: constraints ?? this.constraints,
+      margin: margin ?? this.margin,
+      insetAnimationDuration:
+          insetAnimationDuration ?? this.insetAnimationDuration,
+      insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
+      forwardAnimationCurve:
+          forwardAnimationCurve ?? this.forwardAnimationCurve,
+      reverseAnimationCurve:
+          reverseAnimationCurve ?? this.reverseAnimationCurve,
+      padding: padding ?? this.padding,
+      titleStyle: titleStyle ?? this.titleStyle,
+      contentStyle: contentStyle ?? this.contentStyle,
+      actionColor: actionColor ?? this.actionColor,
+      infoColor: infoColor ?? this.infoColor,
+      successColor: successColor ?? this.successColor,
+      errorColor: errorColor ?? this.errorColor,
+    );
+  }
 }
 
 /// Defines the configuration of the overall visual [FlashTheme] dialog.
@@ -1147,6 +1219,57 @@ class FlashDialogThemeData {
       titleStyle.hashCode ^
       contentStyle.hashCode ^
       actionColor.hashCode;
+
+  FlashDialogThemeData copyWith({
+    Duration? transitionDuration,
+    Brightness? brightness,
+    Color? backgroundColor,
+    Gradient? backgroundGradient,
+    List<BoxShadow>? boxShadows,
+    double? barrierBlur,
+    Color? barrierColor,
+    bool? barrierDismissible,
+    BorderRadius? borderRadius,
+    Color? borderColor,
+    double? borderWidth,
+    BoxConstraints? constraints,
+    EdgeInsets? margin,
+    Duration? insetAnimationDuration,
+    Curve? insetAnimationCurve,
+    Curve? forwardAnimationCurve,
+    Curve? reverseAnimationCurve,
+    EdgeInsets? padding,
+    TextStyle? titleStyle,
+    TextStyle? contentStyle,
+    Color? actionColor,
+  }) {
+    return FlashDialogThemeData(
+      transitionDuration: transitionDuration ?? this.transitionDuration,
+      brightness: brightness ?? this.brightness,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      backgroundGradient: backgroundGradient ?? this.backgroundGradient,
+      boxShadows: boxShadows ?? this.boxShadows,
+      barrierBlur: barrierBlur ?? this.barrierBlur,
+      barrierColor: barrierColor ?? this.barrierColor,
+      barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+      borderRadius: borderRadius ?? this.borderRadius,
+      borderColor: borderColor ?? this.borderColor,
+      borderWidth: borderWidth ?? this.borderWidth,
+      constraints: constraints ?? this.constraints,
+      margin: margin ?? this.margin,
+      insetAnimationDuration:
+          insetAnimationDuration ?? this.insetAnimationDuration,
+      insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
+      forwardAnimationCurve:
+          forwardAnimationCurve ?? this.forwardAnimationCurve,
+      reverseAnimationCurve:
+          reverseAnimationCurve ?? this.reverseAnimationCurve,
+      padding: padding ?? this.padding,
+      titleStyle: titleStyle ?? this.titleStyle,
+      contentStyle: contentStyle ?? this.contentStyle,
+      actionColor: actionColor ?? this.actionColor,
+    );
+  }
 }
 
 /// Defines the configuration of the overall visual [FlashTheme] dialog.
@@ -1273,4 +1396,45 @@ class FlashBlockDialogThemeData {
       forwardAnimationCurve.hashCode ^
       reverseAnimationCurve.hashCode ^
       padding.hashCode;
+
+  FlashBlockDialogThemeData copyWith({
+    Duration? transitionDuration,
+    Brightness? brightness,
+    Color? backgroundColor,
+    Gradient? backgroundGradient,
+    List<BoxShadow>? boxShadows,
+    double? barrierBlur,
+    Color? barrierColor,
+    BorderRadius? borderRadius,
+    Color? borderColor,
+    double? borderWidth,
+    EdgeInsets? margin,
+    Duration? insetAnimationDuration,
+    Curve? insetAnimationCurve,
+    Curve? forwardAnimationCurve,
+    Curve? reverseAnimationCurve,
+    EdgeInsets? padding,
+  }) {
+    return FlashBlockDialogThemeData(
+      transitionDuration: transitionDuration ?? this.transitionDuration,
+      brightness: brightness ?? this.brightness,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      backgroundGradient: backgroundGradient ?? this.backgroundGradient,
+      boxShadows: boxShadows ?? this.boxShadows,
+      barrierBlur: barrierBlur ?? this.barrierBlur,
+      barrierColor: barrierColor ?? this.barrierColor,
+      borderRadius: borderRadius ?? this.borderRadius,
+      borderColor: borderColor ?? this.borderColor,
+      borderWidth: borderWidth ?? this.borderWidth,
+      margin: margin ?? this.margin,
+      insetAnimationDuration:
+          insetAnimationDuration ?? this.insetAnimationDuration,
+      insetAnimationCurve: insetAnimationCurve ?? this.insetAnimationCurve,
+      forwardAnimationCurve:
+          forwardAnimationCurve ?? this.forwardAnimationCurve,
+      reverseAnimationCurve:
+          reverseAnimationCurve ?? this.reverseAnimationCurve,
+      padding: padding ?? this.padding,
+    );
+  }
 }
