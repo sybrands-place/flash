@@ -801,7 +801,7 @@ class FlashBarThemeData {
 
   /// Default value for [Flash.backgroundColor].
   ///
-  /// If null, [Flash] will default to inversion of [ThemeData.backgroundColor].
+  /// If null, [Flash] will default to inversion of [ThemeData.colorScheme.background].
   final Color? backgroundColor;
 
   /// Default value for [Flash.backgroundGradient].
